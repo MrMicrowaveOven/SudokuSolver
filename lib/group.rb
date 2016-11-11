@@ -7,7 +7,7 @@ class Group
     @squares = array_of_squares
   end
 
-  def values
+  def filled_values
     vals = []
     @squares.each do |square|
       vals << square.value if square.value
@@ -16,7 +16,16 @@ class Group
   end
 
   def possible_values
-    taken_numbers = values
+    taken_numbers = filled_values
     (1..9).to_a.reject {|val| taken_numbers.include?(val)}
+  end
+
+  def empty_square
+    empty_squares = @squares.select { |square| square.empty? }
+    if empty_squares.length == 1
+      return @squares.index(empty_squares.first)
+    else
+      return nil
+    end
   end
 end
